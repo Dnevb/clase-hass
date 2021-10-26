@@ -1,10 +1,11 @@
 import {
-  Box,
   Button,
+  Container,
   createTheme,
   TextField,
   ThemeProvider
 } from "@mui/material";
+import { commerce } from "faker";
 import { useEffect, useState } from "react";
 import Product from "./components/Product";
 
@@ -45,14 +46,16 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box>
+      <Container>
         <TextField
+          fullWidth
           type="text"
           variant="standard"
           placeholder="Filtrar"
           value={filterI}
           onChange={onFilter}
         />
+
         {filtered.map((product, i) => (
           <Product {...product} key={product.id} />
         ))}
@@ -63,15 +66,15 @@ function App() {
             setProducts(
               products.concat({
                 id: Math.random() * 100,
-                name: "React",
-                price: 200
+                name: commerce.productName(),
+                price: commerce.price()
               })
             );
           }}
         >
           Agregar
         </Button>
-      </Box>
+      </Container>
     </ThemeProvider>
   );
 }
