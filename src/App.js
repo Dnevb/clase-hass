@@ -5,7 +5,7 @@ import {
   TextField,
   ThemeProvider
 } from "@mui/material";
-import { commerce } from "faker";
+import { commerce, datatype } from "faker";
 import { useEffect, useState } from "react";
 import Product from "./components/Product";
 
@@ -65,7 +65,7 @@ function App() {
           onClick={() => {
             setProducts(
               products.concat({
-                id: Math.random() * 100,
+                id: datatype.uuid(),
                 name: commerce.productName(),
                 price: commerce.price()
               })
