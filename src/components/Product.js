@@ -20,7 +20,7 @@ const Product = (props) => {
 
   useEffect(() => {
     return () => console.log("Eliminando producto", props.name);
-  }, []);
+  }, [props.name]);
 
   return (
     <Stack className={classes.root}>
