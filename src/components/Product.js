@@ -1,6 +1,7 @@
-import { Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
+import { useEffect } from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -16,6 +17,11 @@ const useStyles = makeStyles({
 
 const Product = (props) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    return () => console.log("Eliminando producto", props.name);
+  }, []);
+
   return (
     <Stack className={classes.root}>
       <Typography
@@ -30,6 +36,7 @@ const Product = (props) => {
         <Typography variant="subtitle1">Price:</Typography>
         <Typography variant="body1">${props.price}</Typography>
       </Stack>
+      <Button onClick={() => props.delete(props.id)}>Eliminar</Button>
     </Stack>
   );
 };

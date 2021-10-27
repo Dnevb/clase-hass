@@ -43,6 +43,8 @@ function App() {
   }, [products, filterI]);
 
   const onFilter = (e) => setFilterI(e.target.value);
+  const onDelete = (id) =>
+    setProducts(products.filter((producto) => producto.id !== id));
 
   return (
     <ThemeProvider theme={theme}>
@@ -57,7 +59,7 @@ function App() {
         />
 
         {filtered.map((product, i) => (
-          <Product {...product} key={product.id} />
+          <Product {...product} key={product.id} delete={onDelete} />
         ))}
 
         <Button
