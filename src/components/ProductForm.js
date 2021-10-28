@@ -45,6 +45,7 @@ export const ProductFormUncontrolled = ({ onSubmit }) => {
 
   return (
     <form
+      autoComplete="off"
       id="formulario"
       onSubmit={(e) => {
         e.preventDefault();

@@ -1,7 +1,8 @@
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Box, IconButton } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import { memo, useEffect } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const useStyles = makeStyles({
   root: {
@@ -23,21 +24,20 @@ const Product = (props) => {
   }, [props.name]);
 
   return (
-    <Stack className={classes.root}>
-      <Typography
-        style={{
-          width: 200
-        }}
-        variant="h4"
-      >
-        {props.name}
-      </Typography>
-      <Stack direction="row" alignItems="center">
-        <Typography variant="subtitle1">Price:</Typography>
-        <Typography variant="body1">${props.price}</Typography>
+    <Box className={classes.root}>
+      <Stack direction="row">
+        <Stack flex="1">
+          <Typography variant="h4">{props.name}</Typography>
+          <Stack direction="row" alignItems="center">
+            <Typography variant="subtitle1">Price:</Typography>
+            <Typography variant="body1">${props.price}</Typography>
+          </Stack>
+        </Stack>
+        <IconButton onClick={() => props.delete(props.id)}>
+          <DeleteIcon />
+        </IconButton>
       </Stack>
-      <Button onClick={() => props.delete(props.id)}>Eliminar</Button>
-    </Stack>
+    </Box>
   );
 };
 
