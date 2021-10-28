@@ -1,13 +1,13 @@
 import {
-  Button,
   Container,
   createTheme,
-  TextField,
-  ThemeProvider
+  ThemeProvider,
+  Typography,
+  CssBaseline
 } from "@mui/material";
-import { commerce, datatype } from "faker";
-import { useEffect, useState } from "react";
-import Product from "./components/Product";
+import { createContext, useState } from "react";
+import Navbar from "./components/Navbar";
+import ProductListPage from "./pages/ProductListPage";
 
 const theme = createTheme({});
 
@@ -21,62 +21,29 @@ const product_list = [
     id: 2,
     name: "Laptop",
     price: 599
-  },
-  {
-    id: 3,
-    name: "Printer",
-    price: 299
   }
 ];
 
+export const productsContext = createContext([]);
+export const userContext = createContext("Daniel");
+
 function App() {
   const [products, setProducts] = useState(product_list);
-  const [filtered, setFilted] = useState(products);
-  const [filterI, setFilterI] = useState("");
-
-  useEffect(() => {
-    setFilted(
-      products.filter(
-        (o) => o.name.includes(filterI) || String(o.price).includes(filterI)
-      )
-    );
-  }, [products, filterI]);
-
-  const onFilter = (e) => setFilterI(e.target.value);
-  const onDelete = (id) =>
-    setProducts(products.filter((producto) => producto.id !== id));
 
   return (
     <ThemeProvider theme={theme}>
-      <Container>
-        <TextField
-          fullWidth
-          type="text"
-          variant="standard"
-          placeholder="Filtrar"
-          value={filterI}
-          onChange={onFilter}
-        />
-
-        {filtered.map((product, i) => (
-          <Product {...product} key={product.id} delete={onDelete} />
-        ))}
-
-        <Button
-          variant="outlined"
-          onClick={() => {
-            setProducts(
-              products.concat({
-                id: datatype.uuid(),
-                name: commerce.productName(),
-                price: commerce.price()
-              })
-            );
-          }}
-        >
-          Agregar
-        </Button>
-      </Container>
+      <CssBaseline />
+      <productsContext.Provider value={[products, setProducts]}>
+        <userContext.Provider value={"Daniel"}>
+          <Navbar />
+          <Container>
+            <ProductListPage />
+            <Typography variant="h5">
+              Products count: {products.length}
+            </Typography>
+          </Container>
+        </userContext.Provider>
+      </productsContext.Provider>
     </ThemeProvider>
   );
 }

@@ -1,7 +1,7 @@
 import { Button, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -19,7 +19,7 @@ const Product = (props) => {
   const classes = useStyles();
 
   useEffect(() => {
-    return () => console.log("Eliminando producto", props.name);
+    return () => console.log("Eliminando el producto:", props.name);
   }, [props.name]);
 
   return (
@@ -41,4 +41,4 @@ const Product = (props) => {
   );
 };
 
-export default Product;
+export default memo(Product);
